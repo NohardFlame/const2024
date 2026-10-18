@@ -3,25 +3,25 @@ precision highp float;
 
 uniform sampler2D star;
 uniform int act;
+uniform vec3 uStarDim;
+uniform vec3 uStarLit;
+uniform vec3 uStarHot;
+uniform float uStarBrightness;
 
 in vec2 TexCoord;
 flat in int verId;
 
 out vec4 FragColor;
 
-
 void main() {
-  vec4 myColor;
-  //myColor = vec4(0.3);
-  //FragColor = texture(vel, vec2(float(verId)/5.0, TexCoord.y));
-  //FragColor = texture(vel, TexCoord);
-  
-  myColor += vec4(texture(star, TexCoord).xyz, 0.0);   
-  
-  
-  
-  FragColor = myColor;
-  //FragColor = vec4(1.0);
-  //FragColor = vec4(float(verId)*0.1, float(verId)*0.1, float(verId)*0.1, 1.0);
-  //FragColor = vec4(0.5, 0.5, 0.5, 1);
+  vec4 tex = texture(star, TexCoord);
+  float lum = max(tex.a, max(tex.r, max(tex.g, tex.b)));
+  vec3 tint = uStarDim;
+  if (TexCoord.x < 0.33) {
+    tint = uStarHot;
+  } else if (TexCoord.x < 0.66) {
+    tint = uStarLit;
+  }
+  vec3 rgb = tex.rgb * tint * uStarBrightness;
+  FragColor = vec4(rgb, lum);
 }

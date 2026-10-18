@@ -1,20 +1,41 @@
 <?php
+require_once __DIR__ . "/AdminAuth.php";
+admin_require_api();
 
-header("Content-Type: application/json");
+header("Content-Type: application/json; charset=utf-8");
 
-$_POST = file_get_contents('php://input');
+$raw = file_get_contents("php://input");
+$data = json_decode($raw);
 
-$data = json_decode($_POST);
+if (!is_object($data) || !isset($data->name) || !isset($data->obj)) {
+    http_response_code(400);
+    echo json_encode(["ok" => false, "error" => "invalid json"]);
+    exit;
+}
 
-//$file = fopen("JSONSourses/file.json", "w+");
+$name = (string)$data->name;
+if (!preg_match('/^(const[0-9]|nebula_defaults|style_defaults)$/', $name)) {
+    http_response_code(400);
+    echo json_encode(["ok" => false, "error" => "bad name"]);
+    exit;
+}
 
+$obj = $data->obj;
+if (!is_string($obj)) {
+    $obj = json_encode($obj, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+}
+if ($obj === false || $obj === "") {
+    http_response_code(400);
+    echo json_encode(["ok" => false, "error" => "empty obj"]);
+    exit;
+}
 
-// записываем в него то, что пришло от страницы
-//echo $data->{"obj"};
-file_put_contents("./assets/json/" . $data->{"name"} . ".json", $data->{"obj"});
-// тут же заново считываем все данные, чтобы убедиться, что всё записалось правильно
-echo "/json/" . $data->{"name"} . ".json";
-$check = file_get_contents("./assets/json/" . $data->{"name"} . ".json");
+$path = __DIR__ . "/assets/json/" . $name . ".json";
+if (file_put_contents($path, $obj) === false) {
+    http_response_code(500);
+    echo json_encode(["ok" => false, "error" => "write failed"]);
+    exit;
+}
 
-//touch("json/const" . $POST[0] . ".json");
-echo $check;
+echo "/json/" . $name . ".json";
+echo file_get_contents($path);

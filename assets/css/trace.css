@@ -1,0 +1,267 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background: #0b0e16;
+  color: #e8eef8;
+  font: 13px/1.35 system-ui, sans-serif;
+}
+
+.trace-app {
+  display: grid;
+  grid-template-columns: 280px 1fr 320px;
+  grid-template-rows: auto 1fr;
+  height: 100vh;
+  gap: 0;
+}
+
+.trace-header {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(12, 16, 28, 0.95);
+}
+
+.trace-header h1 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.trace-header a {
+  color: #9ec5ff;
+}
+
+.trace-sidebar {
+  padding: 12px;
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  overflow: auto;
+  background: rgba(10, 12, 20, 0.9);
+}
+
+.trace-preview-pane {
+  padding: 12px;
+  border-left: 1px solid rgba(255, 255, 255, 0.08);
+  overflow: auto;
+  background: rgba(10, 12, 20, 0.9);
+}
+
+.trace-main {
+  position: relative;
+  min-width: 0;
+  min-height: 0;
+  background: #05070c;
+}
+
+.trace-main canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  cursor: crosshair;
+}
+
+.trace-section {
+  margin-bottom: 14px;
+}
+
+.trace-section h2 {
+  margin: 0 0 8px;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  opacity: 0.7;
+}
+
+.trace-section label {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 4px 8px;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.trace-section input[type="range"] {
+  grid-column: 1 / -1;
+  width: 100%;
+}
+
+.trace-tools {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.trace-tools button,
+.trace-actions button,
+.trace-btn {
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.06);
+  color: #e8eef8;
+  border-radius: 6px;
+  padding: 6px 10px;
+  cursor: pointer;
+  font: inherit;
+}
+
+.trace-tools button.active {
+  background: rgba(200, 80, 80, 0.35);
+  border-color: rgba(255, 120, 120, 0.6);
+}
+
+.trace-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.trace-status {
+  margin-top: 8px;
+  font-size: 12px;
+  opacity: 0.85;
+  white-space: pre-wrap;
+}
+
+.trace-hint {
+  margin: 0 0 8px;
+  font-size: 12px;
+  opacity: 0.65;
+}
+
+#preview-canvas {
+  width: 100%;
+  height: auto;
+  background: #000;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.trace-file {
+  width: 100%;
+  margin-bottom: 8px;
+}
+
+.trace-btn-primary {
+  background: rgba(200, 90, 70, 0.45) !important;
+  border-color: rgba(255, 160, 120, 0.7) !important;
+  font-weight: 600;
+}
+
+.trace-details {
+  margin-top: 8px;
+  opacity: 0.85;
+}
+
+.trace-details summary {
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.trace-section select,
+.trace-modal input[type="text"] {
+  width: 100%;
+  grid-column: 1 / -1;
+  background: rgba(0, 0, 0, 0.35);
+  color: inherit;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 6px;
+  padding: 6px 8px;
+  font: inherit;
+}
+
+.trace-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.55);
+}
+
+.trace-modal[hidden] {
+  display: none !important;
+}
+
+.trace-modal__card {
+  width: min(360px, 92vw);
+  background: #141822;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 10px;
+  padding: 16px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
+}
+
+.trace-modal__card h2 {
+  margin: 0 0 8px;
+  font-size: 16px;
+}
+
+.trace-modal__card label {
+  display: grid;
+  gap: 4px;
+  margin-bottom: 10px;
+}
+
+.trace-modal__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.trace-library {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  max-height: 220px;
+  overflow: auto;
+  margin-bottom: 8px;
+}
+
+.trace-library__row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 4px 8px;
+  align-items: baseline;
+  padding: 6px 8px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.03);
+  cursor: pointer;
+  text-align: left;
+  color: inherit;
+  font: inherit;
+  width: 100%;
+}
+
+.trace-library__row:hover {
+  border-color: rgba(255, 200, 120, 0.35);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.trace-library__row.is-active {
+  border-color: rgba(255, 160, 120, 0.65);
+  background: rgba(200, 90, 70, 0.22);
+}
+
+.trace-library__title {
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.trace-library__meta {
+  font-size: 11px;
+  opacity: 0.7;
+  justify-self: end;
+}
+
+.trace-library-copy {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}

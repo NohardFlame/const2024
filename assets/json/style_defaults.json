@@ -1,0 +1,22 @@
+{
+  "paper": [0.12, 0.1, 0.07],
+  "ink": [0.93, 0.86, 0.62],
+  "gold": [0.82, 0.68, 0.28],
+  "goldDim": [0.42, 0.34, 0.16],
+  "starDim": [0.55, 0.62, 0.72],
+  "starLit": [1.0, 0.85, 0.48],
+  "starHot": [1.0, 0.95, 0.75],
+  "starBrightness": 1.15,
+  "cardBorder": 0.035,
+  "headerScale": 0.18,
+  "contentScale": 0.11,
+  "silhouetteColor": [0.72, 0.58, 0.32],
+  "silhouetteAlpha": 0.58,
+  "silhouetteWidth": 1.2,
+  "silhouetteDash": "4 8 8 16 4 4",
+  "classPlate": [0.09, 0.08, 0.06],
+  "classPlateAlpha": 0.84,
+  "classGlyph": [0.82, 0.7, 0.42],
+  "classHover": [0.94, 0.8, 0.38],
+  "classActive": [0.48, 0.36, 0.14]
+}

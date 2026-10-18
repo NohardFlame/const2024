@@ -1,0 +1,3 @@
+# Copy to sync_auth (gitignored) on the server and locally if needed.
+# SheetSync.php?key=YOUR_SECRET
+key: CHANGE_ME_TO_A_LONG_RANDOM_STRING

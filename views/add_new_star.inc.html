@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Expires" content="0" />
+<html lang="ru">
+
+<head>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.4/p5.js"></script>
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <meta charset="utf-8" />
+  <title>Редактор звёзд — перетаскивание</title>
+</head>
+
+<body>
+  <main>
+  </main>
+
+  <aside id="editor-panel" class="sheet-panel">
+    <header class="sheet-panel__header">
+      <h2>Расстановка достижений</h2>
+      <button type="button" id="editor-close" class="sheet-panel__close" aria-label="Close">×</button>
+    </header>
+    <p class="sheet-panel__hint">
+      Достижения подтягиваются из таблицы (cron / кнопка ниже).
+      Здесь только <strong>перетаскивание</strong>: зажмите зажжённую звезду и отпустите на другой.
+      <kbd>S</kbd> — панель. Сетка внизу — выбор класса.
+    </p>
+    <p class="sheet-panel__hint">
+      <a href="settings.php" style="color:#9eb6d4">Настройки по умолчанию</a>
+      ·
+      <a href="trace.php" style="color:#9eb6d4">Обводка</a>
+      ·
+      <a href="logout.php" style="color:#9eb6d4">Выйти</a>
+    </p>
+    <div class="sheet-panel__actions">
+      <button type="button" id="editor-sync" class="sheet-panel__btn">Синхронизировать с таблицей</button>
+      <button type="button" id="editor-sync-dry" class="sheet-panel__btn sheet-panel__btn--ghost">Проверка (dry-run)</button>
+    </div>
+    <p id="editor-status" class="sheet-panel__status">Перетащите достижение между звёздами</p>
+  </aside>
+
+  <script src="assets/js/add_new_star.js?v=20"></script>
+  <script src="assets/js/options.js?v=20"></script>
+  <script src="assets/js/svg_parser.js?v=16"></script>
+  <script src="assets/js/svg_points.js?v=16"></script>
+  <script src="assets/js/make_a_texture.js?v=16"></script>
+  <script src="assets/js/interface_handler.js?v=16"></script>
+  <script src="assets/js/main.js?v=20"></script>
+  <script>
+    if (typeof bindEditorPanel === "function") {
+      bindEditorPanel();
+    }
+  </script>
+</body>
+
+</html>

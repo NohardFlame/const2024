@@ -8,44 +8,36 @@ uniform float ty_0;
 uniform float tw;
 uniform float th;
 
-
 out vec2 TexCoord;
+out vec2 CellCoord;
 
 void main() {
   vec4 positionVec4 = vec4(1.0);
-  if ((gl_VertexID % 4) == 0){
+  int id = gl_VertexID % 4;
+  if (id == 0) {
     TexCoord = vec2(tx_0, ty_0 + th);
+    CellCoord = vec2(0.0, 0.0);
     positionVec4.x = coord.x;
     positionVec4.y = coord.y;
-    // positionVec4.x = 0.5;
-    // positionVec4.y = 0.5;
     positionVec4.z = 0.01;
-  }
-  if ((gl_VertexID % 4) == 1){
+  } else if (id == 1) {
     TexCoord = vec2(tx_0 + tw, ty_0 + th);
+    CellCoord = vec2(1.0, 0.0);
     positionVec4.x = coord.x + w;
     positionVec4.y = coord.y;
-    // positionVec4.x = 0.7;
-    // positionVec4.y = 0.5;
     positionVec4.z = 0.01;
-  }
-  if ((gl_VertexID % 4) == 2){
+  } else if (id == 2) {
     TexCoord = vec2(tx_0, ty_0);
+    CellCoord = vec2(0.0, 1.0);
     positionVec4.x = coord.x;
     positionVec4.y = coord.y + h;
-    // positionVec4.x = 0.5;
-    // positionVec4.y = 0.7;
     positionVec4.z = 0.01;
-  }
-  if ((gl_VertexID % 4) == 3){
+  } else {
     TexCoord = vec2(tx_0 + tw, ty_0);
+    CellCoord = vec2(1.0, 1.0);
     positionVec4.x = coord.x + w;
     positionVec4.y = coord.y + h;
-    // positionVec4.x = 0.7;
-    // positionVec4.y = 0.7;
     positionVec4.z = 0.01;
   }
-
-
   gl_Position = positionVec4;
 }

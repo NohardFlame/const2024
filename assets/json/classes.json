@@ -1,0 +1,87 @@
+{
+  "schoolYear": "2026-2027",
+  "spreadsheetId": "1saCYj_XhQvxHrJ0ROIiVAdER-kCvrtMwFchNUvLbfOQ",
+  "classes": [
+    {
+      "id": "4-1",
+      "label": "4¹",
+      "gridIndex": 0,
+      "constFile": "const0",
+      "sheetClass": "4-1 класс",
+      "sheetInd": "4-1 инд",
+      "animal": "Сова_2026"
+    },
+    {
+      "id": "4-2",
+      "label": "4²",
+      "gridIndex": 1,
+      "constFile": "const1",
+      "sheetClass": "4-2 класс",
+      "sheetInd": "4-2 инд",
+      "animal": "Коллибри_2026"
+    },
+    {
+      "id": "4-3",
+      "label": "4³",
+      "gridIndex": 2,
+      "constFile": "const2",
+      "sheetClass": "4-3 класс",
+      "sheetInd": "4-3 инд",
+      "animal": "Олень_2026"
+    },
+    {
+      "id": "3-1",
+      "label": "3¹",
+      "gridIndex": 3,
+      "constFile": "const3",
+      "sheetClass": "3-1 класс",
+      "sheetInd": "3-1 инд",
+      "animal": "Песец_2026"
+    },
+    {
+      "id": "3-2",
+      "label": "3²",
+      "gridIndex": 4,
+      "constFile": "const4",
+      "sheetClass": "3-2 класс",
+      "sheetInd": "3-2 инд",
+      "animal": "Слон_2026"
+    },
+    {
+      "id": "3-3",
+      "label": "3³",
+      "gridIndex": 5,
+      "constFile": "const5",
+      "sheetClass": "3-3 класс",
+      "sheetInd": "3-3 инд",
+      "animal": "Собака_2026"
+    },
+    {
+      "id": "2-1",
+      "label": "2¹",
+      "gridIndex": 6,
+      "constFile": "const6",
+      "sheetClass": "2-1 класс",
+      "sheetInd": "2-1 инд",
+      "animal": "Кролик_2026"
+    },
+    {
+      "id": "2-2",
+      "label": "2²",
+      "gridIndex": 7,
+      "constFile": "const7",
+      "sheetClass": "2-2 класс",
+      "sheetInd": "2-2 инд",
+      "animal": "Лев_2026"
+    },
+    {
+      "id": "2-3",
+      "label": "2³",
+      "gridIndex": 8,
+      "constFile": "const8",
+      "sheetClass": "2-3 класс",
+      "sheetInd": "2-3 инд",
+      "animal": "Лошадь_2026"
+    }
+  ]
+}

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Обводка созвездия</title>
+  <link rel="stylesheet" href="assets/css/trace.css" />
+</head>
+<body>
+  <div class="trace-app">
+    <header class="trace-header">
+      <h1>Обводка созвездия</h1>
+      <nav>
+        <a href="index.html">Доска</a>
+        ·
+        <a href="add_new_star.php">Звёзды</a>
+        ·
+        <a href="settings.php">Настройки</a>
+        ·
+        <a href="logout.php">Выйти</a>
+      </nav>
+    </header>
+
+    <aside class="trace-sidebar">
+      <section class="trace-section">
+        <h2>Подложка</h2>
+        <p class="trace-hint">Исходник: карандаш, распечатка, SVG. Цель — набор как у класса: constN.json + texN.png.</p>
+        <input class="trace-file" type="file" id="bg-file" accept="image/*,.svg" />
+        <input class="trace-file" type="file" id="svg-file" accept=".svg,image/svg+xml" />
+        <label>
+          <span>Прозрачность подложки</span>
+          <span id="bg-alpha-val">0.55</span>
+          <input type="range" id="bg-alpha" min="0.1" max="1" step="0.05" value="0.55" />
+        </label>
+      </section>
+
+      <section class="trace-section">
+        <h2>Инструменты</h2>
+        <div class="trace-tools">
+          <button type="button" data-tool="poly" class="active">Ломаная</button>
+          <button type="button" data-tool="move">Точка</button>
+          <button type="button" data-tool="bend">Изгиб</button>
+          <button type="button" data-tool="stroke">Штрих</button>
+          <button type="button" data-tool="bead">Бусина</button>
+          <button type="button" data-tool="pan">Пан</button>
+          <button type="button" data-tool="crop">Кроп</button>
+        </div>
+        <p class="trace-hint">Клик по уже поставленной вершине завершает контур (по первой — замыкает). Enter — завершить открытым. Esc — отмена. Точка — перетащить якорь или бусину (соседние в ε едут вместе). Изгиб — ребро или ручки Безье.</p>
+      </section>
+
+      <section class="trace-section">
+        <h2>Стиль линии</h2>
+        <label>
+          <span>Цвет</span>
+          <input type="color" id="sil-color" value="#bf2121" />
+        </label>
+        <label>
+          <span>Толщина</span>
+          <span id="sil-width-val">1.2</span>
+          <input type="range" id="sil-width" min="0.2" max="6" step="0.1" value="1.2" />
+        </label>
+        <label>
+          <span>Dash</span>
+          <input type="text" id="sil-dash" value="4 8 8 16 4 4" style="width:100%;grid-column:1/-1" />
+        </label>
+        <p class="trace-hint">Запекается в texN.png при сохранении. Общие токены — панель N на доске.</p>
+      </section>
+
+      <section class="trace-section">
+        <h2>Дедуп ±ε</h2>
+        <label>
+          <span>ε (норм.)</span>
+          <span id="eps-val">0.02</span>
+          <input type="range" id="eps" min="0.005" max="0.05" step="0.001" value="0.02" />
+        </label>
+        <p class="trace-hint" id="eps-px">≈ — px на кадре</p>
+      </section>
+
+      <section class="trace-section">
+        <h2>Кадр / кроп</h2>
+        <label>
+          <span>Сдвиг X кропа</span>
+          <span id="crop-x-val">0</span>
+          <input type="range" id="crop-x" min="0" max="100" step="1" value="0" />
+        </label>
+        <label>
+          <span>Сдвиг Y кропа</span>
+          <span id="crop-y-val">0</span>
+          <input type="range" id="crop-y" min="0" max="100" step="1" value="0" />
+        </label>
+        <label>
+          <span>Ширина кропа %</span>
+          <span id="crop-w-val">100</span>
+          <input type="range" id="crop-w" min="20" max="100" step="1" value="100" />
+        </label>
+        <label>
+          <span>Высота кропа %</span>
+          <span id="crop-h-val">100</span>
+          <input type="range" id="crop-h" min="20" max="100" step="1" value="100" />
+        </label>
+      </section>
+
+      <section class="trace-section">
+        <h2>Сохранение</h2>
+        <div class="trace-actions">
+          <button type="button" id="btn-save-open" class="trace-btn trace-btn-primary">Сохранить</button>
+          <button type="button" id="btn-undo" class="trace-btn">Отмена</button>
+          <button type="button" id="btn-redo" class="trace-btn">Повтор</button>
+          <button type="button" id="btn-clear" class="trace-btn">Очистить обводку</button>
+        </div>
+        <details class="trace-details">
+          <summary>Дополнительно</summary>
+          <div class="trace-actions" style="margin-top:8px">
+            <button type="button" id="btn-dl-json" class="trace-btn">Скачать JSON</button>
+            <button type="button" id="btn-dl-png" class="trace-btn">Скачать tex PNG</button>
+          </div>
+        </details>
+        <p class="trace-status" id="status"></p>
+      </section>
+
+      <section class="trace-section">
+        <h2>Библиотека созвездий</h2>
+        <p class="trace-hint">Выберите слот, затем откройте в редакторе или перенесите в другой класс.</p>
+        <div id="const-library" class="trace-library"></div>
+        <div id="library-actions" class="trace-actions" hidden>
+          <button type="button" id="btn-lib-open" class="trace-btn trace-btn-primary">В редактор</button>
+          <button type="button" id="btn-lib-copy" class="trace-btn">В другой класс…</button>
+        </div>
+        <div id="library-copy-panel" class="trace-library-copy" hidden>
+          <label>
+            <span>Цель</span>
+            <select id="library-copy-dst"></select>
+          </label>
+          <div class="trace-actions">
+            <button type="button" id="btn-lib-copy-confirm" class="trace-btn">Перенести</button>
+            <button type="button" id="btn-lib-copy-cancel" class="trace-btn">Отмена</button>
+          </div>
+          <p class="trace-hint">Переносятся const + tex + имя; у источника имя очищается. Прежнее содержимое цели уходит в архив; достижения цели очищаются.</p>
+        </div>
+      </section>
+
+      <section class="trace-section">
+        <h2>Архив</h2>
+        <p class="trace-hint">Перед перезаписью слота (сохранение / копирование) старое созвездие кладётся сюда.</p>
+        <div id="archive-library" class="trace-library"></div>
+        <div id="archive-actions" class="trace-actions" hidden>
+          <button type="button" id="btn-arch-open" class="trace-btn trace-btn-primary">В редактор</button>
+          <button type="button" id="btn-arch-restore" class="trace-btn">В класс…</button>
+        </div>
+        <div id="archive-restore-panel" class="trace-library-copy" hidden>
+          <label>
+            <span>Цель</span>
+            <select id="archive-restore-dst"></select>
+          </label>
+          <div class="trace-actions">
+            <button type="button" id="btn-arch-restore-confirm" class="trace-btn">Восстановить</button>
+            <button type="button" id="btn-arch-restore-cancel" class="trace-btn">Отмена</button>
+          </div>
+          <p class="trace-hint">Текущий слот цели тоже архивируется. Восстанавливаются const + tex + имя.</p>
+        </div>
+      </section>
+    </aside>
+
+    <main class="trace-main">
+      <canvas id="edit-canvas"></canvas>
+    </main>
+
+    <aside class="trace-preview-pane">
+      <section class="trace-section">
+        <h2>Предпросмотр доски</h2>
+        <p class="trace-hint">Сдвиг ((x+1)·0.65−0.3), колонка карточек слева. Звёзды = якоря, не ручки Безье.</p>
+        <canvas id="preview-canvas" width="300" height="360"></canvas>
+        <p class="trace-status" id="preview-stats"></p>
+      </section>
+    </aside>
+  </div>
+
+  <div id="save-dialog" class="trace-modal" hidden>
+    <div class="trace-modal__card">
+      <h2>Сохранить созвездие</h2>
+      <p class="trace-hint">Имя → classes.json (animal). Класс → constN.json + texN.png.</p>
+      <label>
+        <span>Имя</span>
+        <input type="text" id="save-name" placeholder="Котик" autocomplete="off" />
+      </label>
+      <label>
+        <span>Класс</span>
+        <select id="save-class"></select>
+      </label>
+      <div class="trace-modal__actions">
+        <button type="button" id="btn-save-cancel" class="trace-btn">Отмена</button>
+        <button type="button" id="btn-save-confirm" class="trace-btn trace-btn-primary">Сохранить</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="assets/js/svg_points.js?v=19"></script>
+  <script src="assets/js/trace_editor.js?v=24"></script>
+</body>
+</html>

@@ -1,0 +1,5 @@
+# Copy to admin_auth (gitignored) on the server.
+# password — login.php / settings / editors
+# sync_key — cron: SheetSync.php?key=...
+password: CHANGE_ME_ADMIN_PASSWORD
+sync_key: CHANGE_ME_LONG_RANDOM_SYNC_KEY

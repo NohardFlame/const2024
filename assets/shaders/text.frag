@@ -10,14 +10,10 @@ in vec2 TexCoord;
 
 out vec4 FragColor;
 
-
 void main() {
-  //FragColor = texture(vel, vec2(float(verId)/5.0, TexCoord.y));
-  //FragColor = texture(vel, TexCoord);
-  //vec4 myColor = texture(txt, vec2(TexCoord.x, 1.0-TexCoord.y));
-  
   vec4 myColor = texture(txt, vec2(TexCoord.x, TexCoord.y));
-  myColor.a = 0.0;
-  myColor *= c;
+  myColor.a = max(myColor.a, max(myColor.r, max(myColor.g, myColor.b)));
+  myColor.rgb *= c;
+  myColor.a *= c;
   FragColor = myColor;
 }
